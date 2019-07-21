@@ -4,20 +4,15 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 
 def signup(request):
-    # 로그인 후 회원 가입 페이지 막기
     if request.user.is_authenticated:
-        return redirect('posts:list')
-    # HTTP Method가 POST 인 경우    
+        return redirect('posts:list')  
     if request.method == 'POST':
         signup_form = UserCreationForm(request.POST)
-        # 모델폼의 유효성 검증이 valid할 경우, DB에 저장
         if signup_form.is_valid():
             user = signup_form.save()
-            # 회원 가입 후 자동 로그인 코드
             auth_login(request, user)
             return redirect('read')
     
-    #HTTP Method가 GET 인 경우
     else:
         signup_form = UserCreationForm()
     
