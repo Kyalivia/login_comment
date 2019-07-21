@@ -5,7 +5,7 @@ from django.contrib.auth import logout as auth_logout
 
 def signup(request):
     if request.user.is_authenticated:
-        return redirect('posts:list')  
+        return redirect('read')  
     if request.method == 'POST':
         signup_form = UserCreationForm(request.POST)
         if signup_form.is_valid():
